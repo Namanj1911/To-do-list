@@ -14,6 +14,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../store/firebase';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../store/auth-context';
+import Cookies from 'js-cookie';
 
 function Copyright(props) {
     return (
@@ -48,6 +49,7 @@ export default function SignIn() {
             console.log(response);
             setIsLoggedIn(true);
             setUser(response.user.uid);
+            Cookies.set('user', response.user.uid);
             navigate('/user');
         } catch (error) {
             alert("Invalid email/password!");

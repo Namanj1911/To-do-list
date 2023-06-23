@@ -1,22 +1,16 @@
-.header {
+.main {
     align-items: center;
-    top: 0;
-    left: 0;
-    height: 5rem;
-    background-color: #8a2b06;
-    color: white;
     display: flex;
-    justify-content: space-between;
-    padding: 0 10%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    z-index: 10;
+    justify-content: space-around;
+    padding: 0;
     margin-bottom: 3rem;
 }
 
-.text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.field {
+    width: 75%;
+    border: none;
+    justify-content: left;
+    border-radius: 25px;
 }
 
 .button {

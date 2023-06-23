@@ -1,30 +1,34 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../store/firebase";
-import { useContext } from "react";
-import AuthContext from "../store/auth-context";
 import { useNavigate } from "react-router-dom";
-import Button from '@mui/material/Button';
-import { Container, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import classes from './MainNavigation.module.css';
+import Cookies from 'js-cookie';
 
 function MainNavigation() {
 
-    const { isLoggedIn, setIsLoggedIn, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    let userIsSignedIn = Cookies.get('user');
 
     const signOutHandler = async () => {
         await signOut(auth);
         console.log("User signed out");
-        setIsLoggedIn(false);
-        setUser(null);
+        Cookies.remove('user');
         navigate('/');
+    };
+
+    const signUpHandler = () => {
+        navigate('/signup');
     }
 
     return (
-        <Container >
-            <Typography variant="h2">To-Do List</Typography>
-            {isLoggedIn && <Button onClick={signOutHandler}>Sign Out</Button>}
-        </Container>
+        <div>
+            <div className={classes.header}>
+                <Typography variant="h3" className={classes.text}>To-Do List</Typography>
+                {userIsSignedIn && <button className={classes.button} onClick={signOutHandler}>Sign Out</button>}
+                {!userIsSignedIn && <button className={classes.button} onClick={signUpHandler}>Sign Up</button>}
+            </div>
+        </div>
     );
 }
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import classes from './Task.module.css';
 
 const Task = ({ addTask }) => {
 
@@ -17,9 +17,9 @@ const Task = ({ addTask }) => {
     };
 
     return (
-        <div>
-            <TextField label="Enter Task" onChange={handleInputChange} value={inputValue} required />
-            <Button onClick={addTaskAddHandler} variant="contained">Add Task</Button>
+        <div className={classes.main}>
+            <TextField className={classes.field} label="Enter Task" onChange={handleInputChange} value={inputValue} required />
+            <button className={classes.button} onClick={addTaskAddHandler} variant="contained">Add Task</button>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Button } from "@mui/material";
+import classes from './TaskItem.module.css';
 
 const TaskItem = ({ item, updateTask, deleteTask }) => {
 
@@ -22,9 +22,9 @@ const TaskItem = ({ item, updateTask, deleteTask }) => {
     }
 
     return (
-        <div>
+        <div className={classes.main}>
             <FormControlLabel style={{ textDecoration: status ? 'line-through' : 'none' }} control={<Checkbox id={item.id} checked={status} onChange={onStatusChange} />} label={item.task} />
-            <Button id={item.id} onClick={ondeleteTask}>Delete</Button>
+            <button className={classes.button} id={item.id} onClick={ondeleteTask}>Delete</button>
         </div>
     )
 }

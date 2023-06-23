@@ -7,12 +7,12 @@ import SignUpPage from "./pages/SignUpPage";
 import TaskPage from "./pages/TaskPage";
 import ErrorPage from "./pages/ErrorPage";
 import { useState } from "react";
-// import Dashboard from "./pages/Dashboard";
+import Cookies from 'js-cookie';
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(Cookies.get('user'));
 
   const router = createBrowserRouter([
     {
@@ -23,8 +23,7 @@ function App() {
         { index: true, element: <HomePage />, errorElement: <ErrorPage />, },
         { path: 'login', element: <LoginPage />, errorElement: <ErrorPage />, },
         { path: 'signup', element: <SignUpPage />, errorElement: <ErrorPage />, },
-        { path: 'user', element: <TaskPage />, errorElement: <ErrorPage />, },
-        // { path: '/dashboard', element: <Dashboard />, errorElement: <ErrorPage /> }
+        { path: 'user', element: <TaskPage />, errorElement: <ErrorPage />, }
       ]
     }
   ]);

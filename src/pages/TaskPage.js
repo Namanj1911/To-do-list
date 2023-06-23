@@ -2,18 +2,19 @@ import Task from "../components/Task";
 import TaskList from "../components/TaskList";
 import { addDoc, collection, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../store/firebase';
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { where, getDocs } from "firebase/firestore";
 import AuthContext from "../store/auth-context";
 import { query } from "firebase/firestore";
 import { Container } from "@mui/material";
+import classes from './TaskPage.module.css';
 
 const TaskPage = () => {
 
     const { user } = useContext(AuthContext);
     const [listItems, setListItems] = useState([]);
 
-    const loadItems = async () => {
+    const loadItems = useCallback(async () => {
         const query1 = query(collection(db, "tasks"), where("user", "==", user));
         const querySnapshot = await getDocs(query1);
         const items = [];
@@ -22,11 +23,11 @@ const TaskPage = () => {
             items.push({ ...doc.data(), id: doc.id });
         });
         setListItems(items);
-    };
+    }, [user]);
 
     useEffect(() => {
         loadItems();
-    }, [user]);
+    }, [loadItems]);
 
     const deleteTask = async (taskId) => {
         await deleteDoc(doc(db, "tasks", taskId));
@@ -51,7 +52,7 @@ const TaskPage = () => {
     };
 
     return (
-        <Container>
+        <Container className={classes.main}>
             <Task addTask={addTask} />
             <TaskList listItems={listItems} updateTask={updateTask} deleteTask={deleteTask} />
         </Container>
